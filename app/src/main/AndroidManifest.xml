@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/smart_serve_logo"
+        android:label="Cafeteria Management"
+        android:roundIcon="@drawable/smart_serve_logo"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CafeteriaManagementSystem">
+        <activity
+            android:name=".activities.ManageMenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.OrdersActivity"
+            android:exported="false" />
+        <activity android:name=".activities.ProfileActivity"/>
+        <activity android:name=".activities.ReportsActivity"/>
+        <activity android:name=".activities.InventoryActivity"/>
+        <activity android:name=".activities.ReceiptActivity"/>
+        <activity android:name=".activities.CheckoutActivity"/>
+        <activity android:name=".activities.CartActivity"/>
+        <activity android:name=".activities.MenuActivity"/>
+        <activity android:name=".activities.DashboardActivity"/>
+        <activity android:name=".activities.RegisterActivity"/>
+        <activity android:name=".activities.LoginActivity"/>
+
+        <activity
+            android:name=".activities.SplashActivity"
+            android:exported="true">
+
+            <intent-filter>
+
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+
+            </intent-filter>
+
+        </activity>
+
+    </application>
+
+</manifest>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF8E7">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Toolbar -->
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#2E7D32"
+            android:title="Receipt"
+            android:titleTextColor="#FFFFFF" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- Receipt heading -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SMART SERVE"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="#2E7D32" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CAFETERIA RECEIPT"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:layout_marginTop="5dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="#CCCCCC" />
+
+            <!-- Customer -->
+
+            <TextView
+                android:id="@+id/tvCustomerName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Name:"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvStudentNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Student Number:"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Phone:"
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="#CCCCCC" />
+
+            <!-- Items -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="ORDER ITEMS"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#2E7D32" />
+
+            <TextView
+                android:id="@+id/tvItems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="#CCCCCC" />
+
+            <!-- Total -->
+
+            <TextView
+                android:id="@+id/tvReceiptTotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="TOTAL: R0.00"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="#2E7D32" />
+
+            <!-- Done -->
+
+            <Button
+                android:id="@+id/btnDone"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="25dp"
+                android:text="DONE"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#2E7D32" />
+            <TextView
+                android:id="@+id/tvReceiptNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Receipt No: 001"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="12dp"
+                android:textColor="#2E7D32" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "393329822881",
+    "project_id": "smartserve-aae32",
+    "storage_bucket": "smartserve-aae32.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393329822881:android:20dce8bbada5c194a9f4e0",
+        "android_client_info": {
+          "package_name": "com.example.cafeteriamanagementsystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "393329822881-rhnvasj8fmvq10a4u22nlssa30og7b91.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cafeteriamanagementsystem",
+            "certificate_hash": "1a196680e9f3a09b287a89ca019f403f2a99773f"
+          }
+        },
+        {
+          "client_id": "393329822881-r4fgfpe9pch3jlclah3fpoig3dtb71r6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1ovyPXHVhFnRtkzcC8MfqbwWnmNHaelk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "393329822881-r4fgfpe9pch3jlclah3fpoig3dtb71r6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
