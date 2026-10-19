@@ -1,0 +1,17 @@
+{
+  "name": "smartserve-api",
+  "version": "1.0.0",
+  "description": "Simple REST API for the SmartServe cafeteria app: menu and orders.",
+  "main": "src/server.js",
+  "private": true,
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
