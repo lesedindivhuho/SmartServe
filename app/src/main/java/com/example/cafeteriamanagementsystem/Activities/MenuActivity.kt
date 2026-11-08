@@ -1,8 +1,9 @@
+
 package com.example.cafeteriamanagementsystem.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.cafeteriamanagementsystem.adapters.FoodAdapter
 import com.example.cafeteriamanagementsystem.databinding.ActivityMenuBinding
 import com.example.cafeteriamanagementsystem.utils.MenuManager
@@ -25,20 +26,19 @@ class MenuActivity : AppCompatActivity() {
             finish()
         }
 
+        // Display menu items in 2 columns
         binding.recyclerFood.layoutManager =
-            LinearLayoutManager(this)
+            GridLayoutManager(this, 2)
 
         loadMenu()
     }
 
     override fun onResume() {
         super.onResume()
-
         loadMenu()
     }
 
     private fun loadMenu() {
-
         binding.recyclerFood.adapter =
             FoodAdapter(MenuManager.foodItems)
     }

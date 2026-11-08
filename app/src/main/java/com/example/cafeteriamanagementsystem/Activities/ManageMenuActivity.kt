@@ -1,7 +1,15 @@
+
 package com.example.cafeteriamanagementsystem.activities
 
 import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.text.InputType
+import android.view.Gravity
+import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -17,15 +25,20 @@ class ManageMenuActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityManageMenuBinding
 
+    private val green = Color.rgb(22, 115, 59)
+    private val yellow = Color.rgb(255, 193, 7)
+    private val red = Color.rgb(211, 47, 47)
+    private val textColor = Color.rgb(35, 35, 35)
+    private val borderColor = Color.rgb(230, 230, 230)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityManageMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Only managers can access this page
+        // Only managers can access this page.
         if (SessionManager.currentUser?.role != UserRole.MANAGER) {
-
             Toast.makeText(
                 this,
                 "Manager access required",
@@ -37,7 +50,6 @@ class ManageMenuActivity : AppCompatActivity() {
         }
 
         setSupportActionBar(binding.toolbar)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.toolbar.setNavigationOnClickListener {
@@ -63,265 +75,281 @@ class ManageMenuActivity : AppCompatActivity() {
 
         binding.menuContainer.removeAllViews()
 
-        if (MenuManager.foodItems.isEmpty()) {
+        val foods = MenuManager.foodItems.toList()
 
-            val emptyText = TextView(this)
-
-            emptyText.text =
-                "No food items are currently available."
-
-            emptyText.textSize = 18f
-
-            emptyText.setPadding(
-                10,
-                30,
-                10,
-                30
-            )
+        if (foods.isEmpty()) {
+            val emptyText = TextView(this).apply {
+                text = "No menu items available."
+                textSize = 15f
+                gravity = Gravity.CENTER
+                setTextColor(Color.GRAY)
+                setPadding(dp(10), dp(30), dp(10), dp(30))
+            }
 
             binding.menuContainer.addView(emptyText)
-
             return
         }
 
-        MenuManager.foodItems.forEach { food ->
+        // Display each food as a table row.
+        foods.forEach { food ->
 
-            val itemLayout = LinearLayout(this)
+            val row = LinearLayout(this).apply {
+                orientation = LinearLayout.HORIZONTAL
+                gravity = Gravity.CENTER_VERTICAL
+                setPadding(dp(10), dp(10), dp(10), dp(10))
+                setBackgroundColor(Color.WHITE)
+            }
 
-            itemLayout.orientation =
-                LinearLayout.VERTICAL
+            // Food name.
+            val name = TextView(this).apply {
+                text = food.name
+                textSize = 12f
+                setTextColor(textColor)
+                setTypeface(null, Typeface.BOLD)
+                gravity = Gravity.CENTER_VERTICAL
+            }
 
-            itemLayout.setPadding(
-                20,
-                20,
-                20,
-                20
-            )
-
-            val name = TextView(this)
-
-            name.text = food.name
-
-            name.textSize = 20f
-
-            name.setTextColor(
-                resources.getColor(
-                    R.color.dark_green,
-                    theme
+            row.addView(
+                name,
+                LinearLayout.LayoutParams(
+                    0,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    1.6f
                 )
             )
 
-            name.setTypeface(
-                null,
-                android.graphics.Typeface.BOLD
-            )
+            // Food price.
+            val price = TextView(this).apply {
+                text = String.format("R%.2f", food.price)
+                textSize = 12f
+                setTextColor(textColor)
+                gravity = Gravity.CENTER_VERTICAL
+            }
 
-            val description = TextView(this)
-
-            description.text =
-                food.description
-
-            description.textSize = 15f
-
-            val price = TextView(this)
-
-            price.text =
-                String.format(
-                    "Price: R%.2f",
-                    food.price
+            row.addView(
+                price,
+                LinearLayout.LayoutParams(
+                    0,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    0.9f
                 )
-
-            price.textSize = 17f
-
-            price.setPadding(
-                0,
-                8,
-                0,
-                8
             )
 
-            val buttonLayout =
-                LinearLayout(this)
+            // Action buttons.
+            val actions = LinearLayout(this).apply {
+                orientation = LinearLayout.HORIZONTAL
+                gravity = Gravity.CENTER
+            }
 
-            buttonLayout.orientation =
-                LinearLayout.HORIZONTAL
-
-            val editButton =
-                android.widget.Button(this)
-
-            editButton.text = "EDIT"
+            val editButton = createActionButton(
+                text = "Edit",
+                color = yellow,
+                textColor = Color.rgb(45, 45, 45)
+            )
 
             editButton.setOnClickListener {
                 showFoodDialog(food.id)
             }
 
-            val deleteButton =
-                android.widget.Button(this)
-
-            deleteButton.text = "DELETE"
+            val deleteButton = createActionButton(
+                text = "Delete",
+                color = red,
+                textColor = Color.WHITE
+            )
 
             deleteButton.setOnClickListener {
                 confirmDelete(food.id, food.name)
             }
 
-            buttonLayout.addView(editButton)
+            actions.addView(
+                editButton,
+                LinearLayout.LayoutParams(
+                    0,
+                    dp(36),
+                    1f
+                ).apply {
+                    marginEnd = dp(5)
+                }
+            )
 
-            buttonLayout.addView(deleteButton)
+            actions.addView(
+                deleteButton,
+                LinearLayout.LayoutParams(
+                    0,
+                    dp(36),
+                    1f
+                ).apply {
+                    marginStart = dp(3)
+                }
+            )
 
-            itemLayout.addView(name)
+            row.addView(
+                actions,
+                LinearLayout.LayoutParams(
+                    0,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    1.8f
+                )
+            )
 
-            itemLayout.addView(description)
+            binding.menuContainer.addView(row)
 
-            itemLayout.addView(price)
+            // Thin divider between items.
+            val divider = View(this).apply {
+                setBackgroundColor(borderColor)
+            }
 
-            itemLayout.addView(buttonLayout)
+            binding.menuContainer.addView(
+                divider,
+                LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    dp(1)
+                )
+            )
+        }
+    }
 
-            binding.menuContainer.addView(itemLayout)
+    private fun createActionButton(
+        text: String,
+        color: Int,
+        textColor: Int
+    ): Button {
+
+        return Button(this).apply {
+            this.text = text
+            textSize = 10f
+            isAllCaps = false
+            setTypeface(null, Typeface.BOLD)
+            setTextColor(textColor)
+
+            minWidth = 0
+            minimumWidth = 0
+            minHeight = dp(36)
+            minimumHeight = dp(36)
+
+            setPadding(dp(2), 0, dp(2), 0)
+
+            background = GradientDrawable().apply {
+                setColor(color)
+                cornerRadius = dp(5).toFloat()
+            }
         }
     }
 
     private fun showFoodDialog(foodId: Int?) {
 
-        val existingFood =
-            MenuManager.foodItems.find {
-                it.id == foodId
+        val existingFood = MenuManager.foodItems.find {
+            it.id == foodId
+        }
+
+        val layout = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(dp(24), dp(8), dp(24), dp(8))
+        }
+
+        val nameInput = EditText(this).apply {
+            hint = "Food name"
+            setSingleLine(true)
+            setText(existingFood?.name ?: "")
+        }
+
+        val descriptionInput = EditText(this).apply {
+            hint = "Description"
+            setText(existingFood?.description ?: "")
+        }
+
+        val priceInput = EditText(this).apply {
+            hint = "Price (R)"
+            inputType = InputType.TYPE_CLASS_NUMBER or
+                    InputType.TYPE_NUMBER_FLAG_DECIMAL
+            setSingleLine(true)
+
+            if (existingFood != null) {
+                setText(existingFood.price.toString())
             }
-
-        val layout = LinearLayout(this)
-
-        layout.orientation =
-            LinearLayout.VERTICAL
-
-        layout.setPadding(
-            40,
-            10,
-            40,
-            10
-        )
-
-        val nameInput =
-            EditText(this)
-
-        nameInput.hint = "Food name"
-
-        nameInput.setText(
-            existingFood?.name ?: ""
-        )
-
-        val descriptionInput =
-            EditText(this)
-
-        descriptionInput.hint =
-            "Description"
-
-        descriptionInput.setText(
-            existingFood?.description ?: ""
-        )
-
-        val priceInput =
-            EditText(this)
-
-        priceInput.hint =
-            "Price"
-
-        priceInput.inputType =
-            android.text.InputType.TYPE_CLASS_NUMBER or
-                    android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
-
-        if (existingFood != null) {
-
-            priceInput.setText(
-                existingFood.price.toString()
-            )
         }
 
         layout.addView(nameInput)
-
         layout.addView(descriptionInput)
-
         layout.addView(priceInput)
 
-        val dialogTitle =
-            if (existingFood == null) {
-                "Add Food"
-            } else {
-                "Edit Food"
-            }
+        val isNewFood = existingFood == null
 
-        AlertDialog.Builder(this)
-            .setTitle(dialogTitle)
+        val dialog = AlertDialog.Builder(this)
+            .setTitle(if (isNewFood) "Add Menu Item" else "Edit Menu Item")
             .setView(layout)
             .setPositiveButton(
-                if (existingFood == null) {
-                    "ADD"
-                } else {
-                    "SAVE"
-                }
-            ) { _, _ ->
-
-                val name =
-                    nameInput.text.toString().trim()
-
-                val description =
-                    descriptionInput.text.toString().trim()
-
-                val price =
-                    priceInput.text.toString()
-                        .toDoubleOrNull()
-
-                if (
-                    name.isEmpty() ||
-                    description.isEmpty() ||
-                    price == null ||
-                    price <= 0
-                ) {
-
-                    Toast.makeText(
-                        this,
-                        "Please enter valid food details",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                    return@setPositiveButton
-                }
-
-                if (existingFood == null) {
-
-                    MenuManager.addFood(
-                        name,
-                        description,
-                        price
-                    )
-
-                    Toast.makeText(
-                        this,
-                        "Food added successfully",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                } else {
-
-                    MenuManager.updateFood(
-                        existingFood.id,
-                        name,
-                        description,
-                        price
-                    )
-
-                    Toast.makeText(
-                        this,
-                        "Food updated successfully",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-                displayMenu()
-            }
-            .setNegativeButton(
-                "CANCEL",
+                if (isNewFood) "ADD" else "SAVE",
                 null
             )
-            .show()
+            .setNegativeButton("CANCEL", null)
+            .create()
+
+        dialog.setOnShowListener {
+
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                .setOnClickListener {
+
+                    val name = nameInput.text.toString().trim()
+                    val description =
+                        descriptionInput.text.toString().trim()
+                    val price =
+                        priceInput.text.toString().trim().toDoubleOrNull()
+
+                    if (name.isEmpty()) {
+                        nameInput.error = "Enter a food name"
+                        return@setOnClickListener
+                    }
+
+                    if (description.isEmpty()) {
+                        descriptionInput.error =
+                            "Enter a description"
+                        return@setOnClickListener
+                    }
+
+                    if (price == null ||
+                        price <= 0 ||
+                        price.isNaN() ||
+                        price.isInfinite()
+                    ) {
+                        priceInput.error = "Enter a valid price"
+                        return@setOnClickListener
+                    }
+
+                    if (isNewFood) {
+                        MenuManager.addFood(
+                            name,
+                            description,
+                            price
+                        )
+
+                        Toast.makeText(
+                            this,
+                            "Food added successfully",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    } else {
+                        MenuManager.updateFood(
+                            existingFood!!.id,
+                            name,
+                            description,
+                            price
+                        )
+
+                        Toast.makeText(
+                            this,
+                            "Food updated successfully",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    dialog.dismiss()
+                    displayMenu()
+                }
+        }
+
+        dialog.show()
     }
 
     private fun confirmDelete(
@@ -330,9 +358,9 @@ class ManageMenuActivity : AppCompatActivity() {
     ) {
 
         AlertDialog.Builder(this)
-            .setTitle("Delete Food")
+            .setTitle("Delete Menu Item")
             .setMessage(
-                "Are you sure you want to remove $foodName from the menu?"
+                "Are you sure you want to delete $foodName?"
             )
             .setPositiveButton("DELETE") { _, _ ->
 
@@ -340,16 +368,17 @@ class ManageMenuActivity : AppCompatActivity() {
 
                 Toast.makeText(
                     this,
-                    "$foodName removed from menu",
+                    "$foodName deleted successfully",
                     Toast.LENGTH_SHORT
                 ).show()
 
                 displayMenu()
             }
-            .setNegativeButton(
-                "CANCEL",
-                null
-            )
+            .setNegativeButton("CANCEL", null)
             .show()
+    }
+
+    private fun dp(value: Int): Int {
+        return (value * resources.displayMetrics.density).toInt()
     }
 }

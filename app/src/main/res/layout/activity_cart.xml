@@ -7,25 +7,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFF8E7">
+    android:background="#F8F9F8">
 
     <!-- Toolbar -->
-
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#2E7D32"
-        android:title="My Cart"
-        android:titleTextColor="#FFFFFF"
-        app:navigationIconTint="#FFFFFF" />
+        android:background="#FFFFFF"
+        android:title="SMART SERVE"
+        android:titleTextColor="#222222"
+        app:navigationIconTint="#2E7D32"
+        app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        app:subtitle="CAFETERIA SYSTEM"
+        app:subtitleTextColor="#666666" />
 
-    <!-- Cart content -->
-
+    <!-- Cart Content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,64 +35,113 @@
             android:orientation="vertical"
             android:padding="20dp">
 
+            <!-- Page Heading -->
             <TextView
                 android:id="@+id/tvCartTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Your Order"
+                android:text="Your Cart"
                 android:textSize="26sp"
                 android:textStyle="bold"
-                android:textColor="#2E7D32" />
+                android:gravity="center"
+                android:textColor="#222222" />
 
+            <View
+                android:layout_width="45dp"
+                android:layout_height="3dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:background="#2E7D32" />
+
+            <!-- Empty Cart Message -->
             <TextView
                 android:id="@+id/tvEmptyCart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="35dp"
                 android:gravity="center"
                 android:text="Your cart is empty"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textColor="#666666"
                 android:visibility="gone" />
 
+            <!-- Cart Items Container -->
             <LinearLayout
                 android:id="@+id/cartContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="vertical" />
+                android:layout_marginTop="22dp"
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                android:padding="8dp" />
+
+            <!-- Order Success Message -->
+            <LinearLayout
+                android:id="@+id/layoutOrderSuccess"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="14dp"
+                android:background="#E8F5E9"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✓"
+                    android:textColor="#2E7D32"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvOrderSuccess"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Order placed successfully!"
+                    android:textColor="#355E3B"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
 
-    <!-- Bottom section -->
-
+    <!-- Bottom Total and Checkout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="20dp"
-        android:background="#FFFFFF">
+        android:background="#FFFFFF"
+        android:elevation="6dp">
 
         <TextView
             android:id="@+id/tvTotal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Total: R0.00"
-            android:textSize="22sp"
+            android:textSize="23sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:textColor="#2E7D32" />
+            android:textColor="#222222" />
 
         <Button
             android:id="@+id/btnCheckout"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_marginTop="12dp"
-            android:text="PROCEED TO CHECKOUT"
+            android:layout_marginTop="16dp"
+            android:text="Proceed to Checkout"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:backgroundTint="#2E7D32" />
+            android:backgroundTint="#087333"
+            app:cornerRadius="8dp" />
 
     </LinearLayout>
 

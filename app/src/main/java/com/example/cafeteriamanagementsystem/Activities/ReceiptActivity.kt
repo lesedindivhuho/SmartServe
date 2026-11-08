@@ -1,3 +1,4 @@
+
 package com.example.cafeteriamanagementsystem.activities
 
 import android.content.Intent
@@ -16,123 +17,78 @@ class ReceiptActivity : AppCompatActivity() {
         binding = ActivityReceiptBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         // TOOLBAR
-
-
         setSupportActionBar(binding.toolbar)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.toolbar.setNavigationOnClickListener {
             goToDashboard()
         }
 
-
         // GET CUSTOMER INFORMATION
-
-
         val customerName =
-            intent.getStringExtra("CUSTOMER_NAME")
-                ?: "Customer"
-
-        val studentNumber =
-            intent.getStringExtra("STUDENT_NUMBER")
-                ?: "Not provided"
+            intent.getStringExtra("CUSTOMER_NAME") ?: "Customer"
 
         val phone =
-            intent.getStringExtra("PHONE")
-                ?: "Not provided"
+            intent.getStringExtra("PHONE") ?: "Not provided"
 
+        // GET ORDER NUMBER
+        val orderNumber =
+            intent.getStringExtra("RECEIPT_NUMBER") ?: "001"
 
-        // GET RECEIPT NUMBER
+        // DISPLAY RECEIPT INFORMATION
+        binding.tvCustomerName.text = "Name: $customerName"
+        binding.tvPhone.text = "Phone: $phone"
+        binding.tvReceiptNumber.text = "Order No: $orderNumber"
 
-
-        val receiptNumber =
-            intent.getStringExtra("RECEIPT_NUMBER")
-                ?: "001"
-
-
-        // DISPLAY CUSTOMER INFORMATION
-
-
-        binding.tvCustomerName.text =
-            "Name: $customerName"
-
-        binding.tvStudentNumber.text =
-            "Student Number: $studentNumber"
-
-        binding.tvPhone.text =
-            "Phone: $phone"
-
-        binding.tvReceiptNumber.text =
-            "Receipt No: $receiptNumber"
-
-
-        // DISPLAY ORDER ITEMS
-
-
+        // DISPLAY ORDERED ITEMS
         val items = CartManager.cartItems
-
         val receipt = StringBuilder()
 
+        receipt.append(" (ORDER RECEIPT)\n\n")
+        receipt.append("Order Number: $orderNumber\n")
+        receipt.append("Customer Name: $customerName\n")
+        receipt.append("Phone Number: $phone\n")
+
+        receipt.append("ITEMS ORDERED\n")
+
+
         if (items.isEmpty()) {
-
-            receipt.append("No items in order.")
-
+            receipt.append("No items in order.\n")
         } else {
-
             for (food in items) {
-
                 receipt.append(
-                    "${food.name}     R%.2f\n"
-                        .format(food.price)
+                    "${food.name}    R%.2f\n".format(food.price)
                 )
             }
         }
 
-        binding.tvItems.text =
-            receipt.toString()
+        receipt.append("-----------------------------------\n")
 
+        binding.tvItems.text = receipt.toString()
 
         // DISPLAY TOTAL
-
-
-        val total =
-            CartManager.getTotal()
+        val total = CartManager.getTotal()
 
         binding.tvReceiptTotal.text =
             "TOTAL: R%.2f".format(total)
 
-
-
+        // DONE BUTTON
         binding.btnDone.setOnClickListener {
-
-            // Clear cart only after the receipt
-            // has been displayed.
             CartManager.clearCart()
-
             goToDashboard()
         }
     }
 
-
-    // GO TO DASHBOARD
-
-
+    // RETURN TO DASHBOARD
     private fun goToDashboard() {
-
-        val intent = Intent(
-            this,
-            DashboardActivity::class.java
-        )
+        val intent = Intent(this, DashboardActivity::class.java)
 
         intent.flags =
             Intent.FLAG_ACTIVITY_CLEAR_TOP or
                     Intent.FLAG_ACTIVITY_SINGLE_TOP
 
         startActivity(intent)
-
         finish()
     }
 }

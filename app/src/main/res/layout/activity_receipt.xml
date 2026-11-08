@@ -13,7 +13,6 @@
         android:orientation="vertical">
 
         <!-- Toolbar -->
-
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -28,8 +27,7 @@
             android:orientation="vertical"
             android:padding="24dp">
 
-            <!-- Receipt heading -->
-
+            <!-- Receipt Heading -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,7 +43,22 @@
                 android:text="CAFETERIA RECEIPT"
                 android:textSize="18sp"
                 android:gravity="center"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="5dp"
+                android:textColor="#444444" />
+
+            <!-- Order Number -->
+            <TextView
+                android:id="@+id/tvReceiptNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="12dp"
+                android:gravity="center"
+                android:text="Order No: 001"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#2E7D32"
+                android:background="#E8F5E9" />
 
             <View
                 android:layout_width="match_parent"
@@ -53,23 +66,24 @@
                 android:layout_marginTop="20dp"
                 android:background="#CCCCCC" />
 
-            <!-- Customer -->
+            <!-- Customer Details -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="CUSTOMER DETAILS"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#2E7D32" />
 
             <TextView
                 android:id="@+id/tvCustomerName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="12dp"
                 android:text="Name:"
-                android:textSize="17sp" />
-
-            <TextView
-                android:id="@+id/tvStudentNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Student Number:"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                android:textColor="#222222" />
 
             <TextView
                 android:id="@+id/tvPhone"
@@ -77,7 +91,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Phone:"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                android:textColor="#222222" />
 
             <View
                 android:layout_width="match_parent"
@@ -85,13 +100,12 @@
                 android:layout_marginTop="20dp"
                 android:background="#CCCCCC" />
 
-            <!-- Items -->
-
+            <!-- Ordered Items -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="ORDER ITEMS"
+                android:text="ITEMS ORDERED"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#2E7D32" />
@@ -101,7 +115,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:textSize="16sp" />
+                android:text="No items in order."
+                android:textSize="16sp"
+                android:textColor="#222222"
+                android:lineSpacingExtra="6dp" />
 
             <View
                 android:layout_width="match_parent"
@@ -109,8 +126,7 @@
                 android:layout_marginTop="20dp"
                 android:background="#CCCCCC" />
 
-            <!-- Total -->
-
+            <!-- Total Amount -->
             <TextView
                 android:id="@+id/tvReceiptTotal"
                 android:layout_width="match_parent"
@@ -122,26 +138,27 @@
                 android:textStyle="bold"
                 android:textColor="#2E7D32" />
 
-            <!-- Done -->
+            <!-- Thank You Message -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="Thank you for your order!"
+                android:textSize="15sp"
+                android:textColor="#666666" />
 
+            <!-- Done Button -->
             <Button
                 android:id="@+id/btnDone"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="25dp"
                 android:text="DONE"
+                android:textStyle="bold"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#2E7D32" />
-            <TextView
-                android:id="@+id/tvReceiptNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Receipt No: 001"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:padding="12dp"
-                android:textColor="#2E7D32" />
+
         </LinearLayout>
 
     </LinearLayout>

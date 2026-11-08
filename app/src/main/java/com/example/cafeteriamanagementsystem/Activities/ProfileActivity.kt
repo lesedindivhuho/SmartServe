@@ -158,7 +158,7 @@ class ProfileActivity : AppCompatActivity() {
 
         binding.btnLogout.setOnClickListener {
 
-            SessionManager.logout(this)
+            SessionManager.currentUser = null
 
             val intent = Intent(
                 this,
